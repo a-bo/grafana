@@ -13,6 +13,8 @@ import 'react-dom';
 import 'vendor/bootstrap/bootstrap';
 import 'vendor/angular-other/angular-strap';
 
+import i18n from './core/i18n';
+
 import $ from 'jquery';
 import angular from 'angular';
 import config from 'app/core/config';
@@ -56,6 +58,7 @@ export class GrafanaApp {
   preBootModules: any[] | null;
 
   constructor() {
+    console.log("Current: " + i18n.locale);
     addClassIfNoOverlayScrollbar('no-overlay-scrollbar');
     this.preBootModules = [];
     this.registerFunctions = {};
@@ -74,7 +77,6 @@ export class GrafanaApp {
 
   init() {
     const app = angular.module('grafana', []);
-
     setLocale(config.bootData.user.locale);
 
     setMarkdownOptions({ sanitize: !config.disableSanitizeHtml });
@@ -143,6 +145,8 @@ export class GrafanaApp {
     coreModule.config(setupAngularRoutes);
     registerAngularDirectives();
 
+
+
     // disable tool tip animation
     $.fn.tooltip.defaults.animation = false;
 
@@ -171,6 +175,7 @@ export class GrafanaApp {
   }
 
   initEchoSrv() {
+    // LoadLanguage();
     setEchoSrv(new Echo({ debug: process.env.NODE_ENV === 'development' }));
 
     ttiPolyfill.getFirstConsistentlyInteractive().then((tti: any) => {

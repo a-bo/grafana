@@ -3,6 +3,7 @@ import { Button, FormLabel, Input, Tooltip } from '@grafana/ui';
 import { User } from 'app/types';
 import config from 'app/core/config';
 import { ProfileUpdateFields } from 'app/core/utils/UserProvider';
+import { Trans } from "react-i18next";
 
 export interface Props {
   user: User;
@@ -55,14 +56,18 @@ export class UserProfileEditForm extends PureComponent<Props, State> {
 
     return (
       <>
-        <h3 className="page-sub-heading">Edit Profile</h3>
+        <h3 className="page-sub-heading"><Trans>Edit Profile</Trans></h3>
         <form name="userForm" className="gf-form-group">
           <div className="gf-form max-width-30">
-            <FormLabel className="width-8">Name</FormLabel>
+            <FormLabel className="width-8">
+              <Trans>Full Name</Trans>
+            </FormLabel>
             <Input className="gf-form-input max-width-22" type="text" onChange={this.onNameChange} value={name} />
           </div>
           <div className="gf-form max-width-30">
-            <FormLabel className="width-8">Email</FormLabel>
+            <FormLabel className="width-8">
+              <Trans>Email</Trans>
+            </FormLabel>
             <Input
               className="gf-form-input max-width-22"
               type="text"
@@ -77,7 +82,9 @@ export class UserProfileEditForm extends PureComponent<Props, State> {
             )}
           </div>
           <div className="gf-form max-width-30">
-            <FormLabel className="width-8">Username</FormLabel>
+            <FormLabel className="width-8">
+              <Trans>Username</Trans>
+            </FormLabel>
             <Input
               className="gf-form-input max-width-22"
               type="text"
@@ -93,7 +100,7 @@ export class UserProfileEditForm extends PureComponent<Props, State> {
           </div>
           <div className="gf-form-button-row">
             <Button variant="primary" onClick={this.onSubmitProfileUpdate} disabled={isSavingUser}>
-              Save
+              <Trans>Save</Trans>
             </Button>
           </div>
         </form>

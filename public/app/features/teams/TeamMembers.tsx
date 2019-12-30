@@ -11,6 +11,7 @@ import { WithFeatureToggle } from 'app/core/components/WithFeatureToggle';
 import { config } from 'app/core/config';
 import { contextSrv, User as SignedInUser } from 'app/core/services/context_srv';
 import TeamMemberRow from './TeamMemberRow';
+import { Trans,Translation } from "react-i18next";
 
 export interface Props {
   members: TeamMember[];
@@ -73,13 +74,17 @@ export class TeamMembers extends PureComponent<Props, State> {
       <div>
         <div className="page-action-bar">
           <div className="gf-form gf-form--grow">
-            <FilterInput
-              labelClassName="gf-form--has-input-icon gf-form--grow"
-              inputClassName="gf-form-input"
-              placeholder="Search members"
-              value={searchMemberQuery}
-              onChange={this.onSearchQueryChange}
-            />
+            <Translation>
+              {
+                t=><FilterInput
+                    labelClassName="gf-form--has-input-icon gf-form--grow"
+                    inputClassName="gf-form-input"
+                    placeholder={t("Search members")}
+                    value={searchMemberQuery}
+                    onChange={this.onSearchQueryChange}
+                  />
+              }
+            </Translation>
           </div>
 
           <div className="page-action-bar__spacer" />
@@ -89,7 +94,7 @@ export class TeamMembers extends PureComponent<Props, State> {
             onClick={this.onToggleAdding}
             disabled={isAdding || !isTeamAdmin}
           >
-            Add member
+            <Trans>Add member</Trans>
           </button>
         </div>
 
@@ -98,12 +103,14 @@ export class TeamMembers extends PureComponent<Props, State> {
             <button className="cta-form__close btn btn-transparent" onClick={this.onToggleAdding}>
               <i className="fa fa-close" />
             </button>
-            <h5>Add team member</h5>
+            <h5>
+              <Trans>Add team member</Trans>
+            </h5>
             <div className="gf-form-inline">
               <UserPicker onSelected={this.onUserSelected} className="min-width-30" />
               {this.state.newTeamMember && (
                 <button className="btn btn-primary gf-form-btn" type="submit" onClick={this.onAddUserToTeam}>
-                  Add to team
+                  <Trans>Add to team</Trans>
                 </button>
               )}
             </div>
@@ -115,11 +122,19 @@ export class TeamMembers extends PureComponent<Props, State> {
             <thead>
               <tr>
                 <th />
-                <th>Login</th>
-                <th>Email</th>
-                <th>Name</th>
+                <th>
+                  <Trans>Login</Trans>
+                </th>
+                <th>
+                  <Trans>Email</Trans>
+                </th>
+                <th>
+                  <Trans>Name</Trans>
+                </th>
                 <WithFeatureToggle featureToggle={editorsCanAdmin}>
-                  <th>Permission</th>
+                  <th>
+                    <Trans>Permission</Trans>
+                  </th>
                 </WithFeatureToggle>
                 {syncEnabled && <th />}
                 <th style={{ width: '1%' }} />

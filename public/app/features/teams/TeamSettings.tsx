@@ -7,6 +7,7 @@ import { updateTeam } from './state/actions';
 import { getRouteParamsId } from 'app/core/selectors/location';
 import { getTeam } from './state/selectors';
 import { Team } from 'app/types';
+import { Trans } from "react-i18next";
 
 export interface Props {
   team: Team;
@@ -48,10 +49,14 @@ export class TeamSettings extends React.Component<Props, State> {
 
     return (
       <div>
-        <h3 className="page-sub-heading">Team Settings</h3>
+        <h3 className="page-sub-heading">
+          <Trans>Team Settings</Trans>
+        </h3>
         <form name="teamDetailsForm" className="gf-form-group" onSubmit={this.onUpdate}>
           <div className="gf-form max-width-30">
-            <FormLabel>Name</FormLabel>
+            <FormLabel>
+              <Trans>Name</Trans>
+            </FormLabel>
             <Input
               type="text"
               required
@@ -63,7 +68,7 @@ export class TeamSettings extends React.Component<Props, State> {
 
           <div className="gf-form max-width-30">
             <FormLabel tooltip="This is optional and is primarily used to set the team profile avatar (via gravatar service)">
-              Email
+              <Trans>Email</Trans>
             </FormLabel>
             <Input
               type="email"
@@ -76,7 +81,7 @@ export class TeamSettings extends React.Component<Props, State> {
 
           <div className="gf-form-button-row">
             <button type="submit" className="btn btn-primary">
-              Update
+              <Trans>Update</Trans>
             </button>
           </div>
         </form>

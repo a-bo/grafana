@@ -35,6 +35,7 @@ func getPreferencesFor(orgID, userID, teamID int64) Response {
 		Theme:           prefsQuery.Result.Theme,
 		HomeDashboardID: prefsQuery.Result.HomeDashboardId,
 		Timezone:        prefsQuery.Result.Timezone,
+		Language:		 prefsQuery.Result.Language,
 	}
 
 	return JSON(200, &dto)
@@ -52,6 +53,7 @@ func updatePreferencesFor(orgID, userID, teamId int64, dtoCmd *dtos.UpdatePrefsC
 		TeamId:          teamId,
 		Theme:           dtoCmd.Theme,
 		Timezone:        dtoCmd.Timezone,
+		Language:		 dtoCmd.Language,
 		HomeDashboardId: dtoCmd.HomeDashboardID,
 	}
 

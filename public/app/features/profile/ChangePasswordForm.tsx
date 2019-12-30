@@ -7,6 +7,7 @@ import { PasswordInput } from 'app/core/components/PasswordInput/PasswordInput';
 export interface Props {
   isSaving: boolean;
   onChangePassword: (payload: ChangePasswordFields) => void;
+  t: (key: string) => string;
 }
 
 export interface State {
@@ -41,9 +42,9 @@ export class ChangePasswordForm extends PureComponent<Props, State> {
 
   render() {
     const { oldPassword, newPassword, confirmNew } = this.state;
-    const { isSaving } = this.props;
+    const { isSaving,t } = this.props;
     const { ldapEnabled, authProxyEnabled } = config;
-
+    
     if (ldapEnabled || authProxyEnabled) {
       return <p>You cannot change password when ldap or auth proxy authentication is enabled.</p>;
     }
@@ -51,20 +52,20 @@ export class ChangePasswordForm extends PureComponent<Props, State> {
     return (
       <form name="userForm" className="gf-form-group">
         <div className="gf-form max-width-30">
-          <PasswordInput label="Old Password" onChange={this.onOldPasswordChange} value={oldPassword} />
+          <PasswordInput label={t("Old Password")} onChange={this.onOldPasswordChange} value={oldPassword} />
         </div>
         <div className="gf-form max-width-30">
-          <PasswordInput label="New Password" onChange={this.onNewPasswordChange} value={newPassword} />
+          <PasswordInput label={t("New Password")} onChange={this.onNewPasswordChange} value={newPassword} />
         </div>
         <div className="gf-form max-width-30">
-          <PasswordInput label="Confirm Password" onChange={this.onConfirmPasswordChange} value={confirmNew} />
+          <PasswordInput label={t("Confirm Password")} onChange={this.onConfirmPasswordChange} value={confirmNew} />
         </div>
         <div className="gf-form-button-row">
           <Button variant="primary" onClick={this.onSubmitChangePassword} disabled={isSaving}>
-            Change Password
+            {t("Change Password")}
           </Button>
           <LinkButton variant="transparent" href={`${config.appSubUrl}/profile`}>
-            Cancel
+            {t("Cancel")}
           </LinkButton>
         </div>
       </form>

@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { User } from 'app/types';
 import { UserOrg } from 'app/core/utils/UserProvider';
 import { LoadingPlaceholder, Button } from '@grafana/ui';
+import { Trans } from "react-i18next";
 
 export interface Props {
   user: User;
@@ -27,13 +28,19 @@ export class UserOrganizations extends PureComponent<Props> {
       <>
         {orgs.length > 0 && (
           <>
-            <h3 className="page-sub-heading">Organizations</h3>
+            <h3 className="page-sub-heading">
+              <Trans>Organizations</Trans>
+            </h3>
             <div className="gf-form-group">
               <table className="filter-table form-inline">
                 <thead>
                   <tr>
-                    <th>Name</th>
-                    <th>Role</th>
+                    <th>
+                      <Trans>Name</Trans>
+                    </th>
+                    <th>
+                      <Trans>Role</Trans>
+                    </th>
                     <th />
                   </tr>
                 </thead>
@@ -45,18 +52,20 @@ export class UserOrganizations extends PureComponent<Props> {
                         <td>{org.role}</td>
                         <td className="text-right">
                           {org.orgId === user.orgId ? (
-                            <span className="btn btn-primary btn-small">Current</span>
+                            <span className="btn btn-primary btn-small">
+                              <Trans>Current</Trans>
+                            </span>
                           ) : (
-                            <Button
-                              variant="inverse"
-                              size="sm"
-                              onClick={() => {
-                                this.props.setUserOrg(org);
-                              }}
-                            >
-                              Select
+                              <Button
+                                variant="inverse"
+                                size="sm"
+                                onClick={() => {
+                                  this.props.setUserOrg(org);
+                                }}
+                              >
+                                Select
                             </Button>
-                          )}
+                            )}
                         </td>
                       </tr>
                     );

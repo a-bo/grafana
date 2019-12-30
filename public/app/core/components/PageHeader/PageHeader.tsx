@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import appEvents from 'app/core/app_events';
 import { NavModel, NavModelItem, NavModelBreadcrumb } from '@grafana/data';
 import { CoreEvents } from 'app/types';
+import { Trans } from "react-i18next";
 
 export interface Props {
   model: NavModel;
@@ -62,7 +63,7 @@ const Tabs = ({ main, customCss }: { main: NavModelItem; customCss: string }) =>
           <li className="gf-tabs-item" key={tab.url}>
             <a className={tabClasses} target={tab.target} href={tab.url}>
               <i className={tab.icon} />
-              {tab.text}
+              <Trans>{tab.text}</Trans>
             </a>
           </li>
         );
@@ -72,6 +73,7 @@ const Tabs = ({ main, customCss }: { main: NavModelItem; customCss: string }) =>
 };
 
 const Navigation = ({ main }: { main: NavModelItem }) => {
+  console.log(main);
   return (
     <nav>
       <SelectNav customCss="page-header__select-nav" main={main} />
@@ -104,7 +106,7 @@ export default class PageHeader extends React.Component<Props, any> {
       if (bc.url) {
         breadcrumbsResult.push(
           <a className="text-link" key={breadcrumbsResult.length} href={bc.url}>
-            {bc.title}
+            <Trans>{bc.title}</Trans>
           </a>
         );
       } else {
@@ -113,7 +115,9 @@ export default class PageHeader extends React.Component<Props, any> {
     }
     breadcrumbsResult.push(<span key={breadcrumbs.length + 1}> / {title}</span>);
 
-    return <h1 className="page-header__title">{breadcrumbsResult}</h1>;
+    return <h1 className="page-header__title">
+      {breadcrumbsResult}
+    </h1>;
   }
 
   renderHeaderTitle(main: NavModelItem) {
@@ -126,7 +130,9 @@ export default class PageHeader extends React.Component<Props, any> {
 
         <div className="page-header__info-block">
           {this.renderTitle(main.text, main.breadcrumbs)}
-          {main.subTitle && <div className="page-header__sub-title">{main.subTitle}</div>}
+          {main.subTitle && <div className="page-header__sub-title">
+            <Trans>{main.subTitle}</Trans>
+          </div>}
         </div>
       </div>
     );

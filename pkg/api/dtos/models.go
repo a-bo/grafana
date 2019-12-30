@@ -36,6 +36,7 @@ type CurrentUser struct {
 	IsGrafanaAdmin             bool         `json:"isGrafanaAdmin"`
 	GravatarUrl                string       `json:"gravatarUrl"`
 	Timezone                   string       `json:"timezone"`
+	Language                   string       `json:"language"`
 	Locale                     string       `json:"locale"`
 	HelpFlags1                 m.HelpFlags1 `json:"helpFlags1"`
 	HasEditPermissionInFolders bool         `json:"hasEditPermissionInFolders"`

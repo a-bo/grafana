@@ -2,6 +2,7 @@ import React, { createRef, PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Invitee } from 'app/types';
 import { revokeInvite } from './state/actions';
+import { Trans } from "react-i18next";
 
 export interface Props {
   invitee: Invitee;
@@ -34,7 +35,7 @@ class InviteeRow extends PureComponent<Props> {
               style={{ position: 'absolute', bottom: 0, right: 0, opacity: 0, zIndex: -10 }}
               ref={this.copyUrlRef}
             />
-            Copy Invite
+            <Trans>Copy Invite</Trans>
           </button>
           &nbsp;
         </td>

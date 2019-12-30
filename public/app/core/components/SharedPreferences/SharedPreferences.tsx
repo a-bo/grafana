@@ -4,6 +4,7 @@ import { FormLabel, Select } from '@grafana/ui';
 
 import { DashboardSearchHit, DashboardSearchHitType } from 'app/types';
 import { getBackendSrv } from 'app/core/services/backend_srv';
+import { Trans } from "react-i18next";
 
 export interface Props {
   resourceUri: string;
@@ -13,6 +14,7 @@ export interface State {
   homeDashboardId: number;
   theme: string;
   timezone: string;
+  language: string;
   dashboards: DashboardSearchHit[];
 }
 
@@ -28,6 +30,11 @@ const timezones = [
   { value: 'utc', label: 'UTC' },
 ];
 
+const languages = [
+  { value: '', label: 'Default' },
+  { value: 'zh_CN', label: '简体中文' },
+  { value: 'en-US', label: 'English' },
+];
 export class SharedPreferences extends PureComponent<Props, State> {
   backendSrv = getBackendSrv();
 
@@ -38,6 +45,7 @@ export class SharedPreferences extends PureComponent<Props, State> {
       homeDashboardId: 0,
       theme: '',
       timezone: '',
+      language: '',
       dashboards: [],
     };
   }
@@ -73,18 +81,19 @@ export class SharedPreferences extends PureComponent<Props, State> {
       theme: prefs.theme,
       timezone: prefs.timezone,
       dashboards: [defaultDashboardHit, ...dashboards],
+      language: prefs.language,
     });
   }
-
   onSubmitForm = async (event: React.SyntheticEvent) => {
     event.preventDefault();
 
-    const { homeDashboardId, theme, timezone } = this.state;
+    const { homeDashboardId, theme, timezone, language } = this.state;
 
     await this.backendSrv.put(`/api/${this.props.resourceUri}/preferences`, {
       homeDashboardId,
       theme,
       timezone,
+      language,
     });
     window.location.reload();
   };
@@ -95,6 +104,10 @@ export class SharedPreferences extends PureComponent<Props, State> {
 
   onTimeZoneChanged = (timezone: string) => {
     this.setState({ timezone });
+  };
+
+  onLanguageChanged = (language: string) => {
+    this.setState({ language });
   };
 
   onHomeDashboardChanged = (dashboardId: number) => {
@@ -109,13 +122,15 @@ export class SharedPreferences extends PureComponent<Props, State> {
   };
 
   render() {
-    const { theme, timezone, homeDashboardId, dashboards } = this.state;
+    const { theme, timezone, language, homeDashboardId, dashboards } = this.state;
 
     return (
       <form className="section gf-form-group" onSubmit={this.onSubmitForm}>
-        <h3 className="page-heading">Preferences</h3>
+        <h3 className="page-heading"><Trans>Preferences </Trans></h3>
         <div className="gf-form">
-          <span className="gf-form-label width-11">UI Theme</span>
+          <span className="gf-form-label width-11">
+            <Trans>UI Theme</Trans>
+          </span>
           <Select
             isSearchable={false}
             value={themes.find(item => item.value === theme)}
@@ -129,7 +144,7 @@ export class SharedPreferences extends PureComponent<Props, State> {
             width={11}
             tooltip="Not finding dashboard you want? Star it first, then it should appear in this select box."
           >
-            Home Dashboard
+            <Trans>Home Dashboard</Trans>
           </FormLabel>
           <Select
             value={dashboards.find(dashboard => dashboard.id === homeDashboardId)}
@@ -142,7 +157,9 @@ export class SharedPreferences extends PureComponent<Props, State> {
           />
         </div>
         <div className="gf-form">
-          <label className="gf-form-label width-11">Timezone</label>
+          <label className="gf-form-label width-11">
+            <Trans>Timezone</Trans>
+          </label>
           <Select
             isSearchable={false}
             value={timezones.find(item => item.value === timezone)}
@@ -151,9 +168,22 @@ export class SharedPreferences extends PureComponent<Props, State> {
             width={20}
           />
         </div>
+
+        <div className="gf-form">
+          <span className="gf-form-label width-11">
+            <Trans>Language</Trans>
+          </span>
+          <Select
+            isSearchable={false}
+            value={languages.find(item => item.value === language)}
+            onChange={language => this.onLanguageChanged(language.value)}
+            options={languages}
+            width={20}
+          />
+        </div>
         <div className="gf-form-button-row">
           <button type="submit" className="btn btn-primary">
-            Save
+            <Trans>Save</Trans>
           </button>
         </div>
       </form>

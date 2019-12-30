@@ -2,7 +2,7 @@ import React, { ChangeEvent, PureComponent, SyntheticEvent } from 'react';
 import { Tooltip } from '@grafana/ui';
 import { AppEvents } from '@grafana/data';
 import { e2e } from '@grafana/e2e';
-
+import { Trans } from "react-i18next";
 import appEvents from 'app/core/app_events';
 
 interface Props {
@@ -80,7 +80,9 @@ export class ChangePassword extends PureComponent<Props, State> {
     return (
       <div className="login-inner-box" id="change-password-view">
         <div className="text-left login-change-password-info">
-          <h5>Change Password</h5>
+          <h5>
+            <Trans>Change Password</Trans>
+          </h5>
           Before you can get started with awesome dashboards we need you to make your account more secure by changing
           your password.
           <br />

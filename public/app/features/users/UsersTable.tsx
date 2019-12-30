@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { OrgUser } from 'app/types';
+import { Trans } from "react-i18next";
 
 export interface Props {
   users: OrgUser[];
@@ -15,11 +16,21 @@ const UsersTable: FC<Props> = props => {
       <thead>
         <tr>
           <th />
-          <th>Login</th>
-          <th>Email</th>
-          <th>Name</th>
-          <th>Seen</th>
-          <th>Role</th>
+          <th>
+            <Trans>Login Name</Trans>
+          </th>
+          <th>
+            <Trans>Email</Trans>
+          </th>
+          <th>
+            <Trans>Full Name</Trans>
+          </th>
+          <th>
+            <Trans>Seen</Trans>
+          </th>
+          <th>
+            <Trans>Role</Trans>
+          </th>
           <th style={{ width: '34px' }} />
         </tr>
       </thead>

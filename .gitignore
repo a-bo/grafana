@@ -102,3 +102,5 @@ compilation-stats.json
 /public/e2e-test/screenShots/theOutput
 /public/e2e-tests/screenShots/theOutput/*.png
 /public/e2e-tests/videos
+yarn.lock
+package-lock.json

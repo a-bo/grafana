@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { setUsersSearchQuery } from './state/actions';
 import { getInviteesCount, getUsersSearchQuery } from './state/selectors';
 import { FilterInput } from 'app/core/components/FilterInput/FilterInput';
+import { Trans,Translation } from "react-i18next";
 
 export interface Props {
   searchQuery: string;
@@ -44,27 +45,34 @@ export class UsersActionBar extends PureComponent<Props> {
     return (
       <div className="page-action-bar">
         <div className="gf-form gf-form--grow">
-          <FilterInput
-            labelClassName="gf-form--has-input-icon"
-            inputClassName="gf-form-input width-20"
-            value={searchQuery}
-            onChange={setUsersSearchQuery}
-            placeholder="Filter by email, login or name"
-          />
+
+          <Translation>
+            {
+              t => <FilterInput
+                labelClassName="gf-form--has-input-icon"
+                inputClassName="gf-form-input width-20"
+                value={searchQuery}
+                onChange={setUsersSearchQuery}
+                placeholder={t("Filter by email, login or name")}
+              />
+            }
+          </Translation>
           {pendingInvitesCount > 0 && (
             <div style={{ marginLeft: '1rem' }}>
               <button className={usersButtonStyle} key="users" onClick={onShowInvites}>
-                Users
+                <Trans>Users</Trans>
               </button>
               <button className={pendingInvitesButtonStyle} onClick={onShowInvites} key="pending-invites">
-                Pending Invites ({pendingInvitesCount})
+                <Trans>Pending Invites</Trans> ({pendingInvitesCount})
               </button>
             </div>
           )}
           <div className="page-action-bar__spacer" />
           {canInvite && (
             <a className="btn btn-primary" href="org/users/invite">
-              <span>Invite</span>
+              <span>
+                <Trans>Invite</Trans>
+              </span>
             </a>
           )}
           {externalUserMngLinkUrl && (

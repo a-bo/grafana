@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { UserSession } from 'app/types';
+import { Trans } from "react-i18next";
 
 interface Props {
   sessions: UserSession[];
@@ -21,26 +22,38 @@ export class UserSessions extends PureComponent<Props> {
 
   render() {
     const { sessions } = this.props;
-
+    
     return (
       <>
-        <h3 className="page-heading">Sessions</h3>
+        <h3 className="page-heading">
+          <Trans>Sessions</Trans>
+        </h3>
         <div className="gf-form-group">
           <div className="gf-form">
             <table className="filter-table form-inline">
               <thead>
                 <tr>
-                  <th>Last seen</th>
-                  <th>Logged on</th>
-                  <th>IP address</th>
-                  <th colSpan={2}>Browser &amp; OS</th>
+                  <th>
+                    <Trans>Last seen</Trans>
+                  </th>
+                  <th>
+                    <Trans>Logged on</Trans>
+                  </th>
+                  <th>
+                    <Trans>IP address</Trans>
+                  </th>
+                  <th colSpan={2}>
+                    <Trans>Browser &amp; OS</Trans>
+                  </th>
                 </tr>
               </thead>
               <tbody>
                 {sessions &&
                   sessions.map((session, index) => (
                     <tr key={`${session.id}-${index}`}>
-                      <td>{session.isActive ? 'Now' : session.seenAt}</td>
+                      <td>
+                        <Trans>{session.isActive ? 'Now' : session.seenAt}</Trans>
+                      </td>
                       <td>{session.createdAt}</td>
                       <td>{session.clientIp}</td>
                       <td>{`${session.browser} on ${session.os} ${session.osVersion}`}</td>

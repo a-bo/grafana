@@ -129,6 +129,7 @@ var (
 	LoginHint               string
 	PasswordHint            string
 	DefaultTheme            string
+	DefaultLanguage			string
 	DisableLoginForm        bool
 	DisableSignoutMenu      bool
 	SignoutRedirectUrl      string
@@ -794,6 +795,12 @@ func (cfg *Cfg) Load(args *CommandLineArgs) error {
 	if err != nil {
 		return err
 	}
+
+	DefaultLanguage, err = valueAsString(users, "default_language", "")
+	if err != nil {
+		return err
+	}
+
 	ExternalUserMngLinkUrl, err = valueAsString(users, "external_manage_link_url", "")
 	if err != nil {
 		return err

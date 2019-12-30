@@ -15,6 +15,7 @@ func addPreferencesMigrations(mg *Migrator) {
 			{Name: "version", Type: DB_Int, Nullable: false},
 			{Name: "home_dashboard_id", Type: DB_BigInt, Nullable: false},
 			{Name: "timezone", Type: DB_NVarchar, Length: 50, Nullable: false},
+			{Name: "language", Type: DB_NVarchar, Length: 50, Nullable: false},
 			{Name: "theme", Type: DB_NVarchar, Length: 20, Nullable: false},
 			{Name: "created", Type: DB_DateTime, Nullable: false},
 			{Name: "updated", Type: DB_DateTime, Nullable: false},

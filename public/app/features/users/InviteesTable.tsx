@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Invitee } from 'app/types';
 import InviteeRow from './InviteeRow';
+import { Trans } from "react-i18next";
 
 export interface Props {
   invitees: Invitee[];
@@ -14,8 +15,12 @@ export default class InviteesTable extends PureComponent<Props> {
       <table className="filter-table form-inline">
         <thead>
           <tr>
-            <th>Email</th>
-            <th>Name</th>
+            <th>
+              <Trans>Email</Trans>
+            </th>
+            <th>
+              <Trans>Name</Trans>
+            </th>
             <th />
             <th style={{ width: '34px' }} />
           </tr>

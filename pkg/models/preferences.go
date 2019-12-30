@@ -18,6 +18,7 @@ type Preferences struct {
 	Version         int
 	HomeDashboardId int64
 	Timezone        string
+	Language        string
 	Theme           string
 	Created         time.Time
 	Updated         time.Time
@@ -50,5 +51,6 @@ type SavePreferencesCommand struct {
 
 	HomeDashboardId int64  `json:"homeDashboardId"`
 	Timezone        string `json:"timezone"`
+	Language        string `json:"language"`
 	Theme           string `json:"theme"`
 }
