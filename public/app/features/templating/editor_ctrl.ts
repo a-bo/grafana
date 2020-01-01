@@ -9,6 +9,7 @@ import DatasourceSrv from '../plugins/datasource_srv';
 import { VariableSrv } from './all';
 import { TemplateSrv } from './template_srv';
 import { promiseToDigest } from '../../core/utils/promiseToDigest';
+import { T } from "../../core/i18n";
 
 export class VariableEditorCtrl {
   /** @ngInject */
@@ -19,44 +20,35 @@ export class VariableEditorCtrl {
     $scope._ = _;
     $scope.optionsLimit = 20;
     $scope.emptyListCta = {
-      title: 'There are no variables yet',
-      buttonTitle: 'Add variable',
+      title: T('There are no variables yet'),
+      buttonTitle: T('Add variable'),
       buttonIcon: 'gicon gicon-variable',
       infoBox: {
-        __html: ` <p>
-      Variables enable more interactive and dynamic dashboards. Instead of hard-coding things like server or
-      sensor names in your metric queries you can use variables in their place. Variables are shown as dropdown
-      select boxes at the top of the dashboard. These dropdowns make it easy to change the data being displayed in
-      your dashboard. Check out the
-      <a class="external-link" href="http://docs.grafana.org/reference/templating/" target="_blank">
-        Templating documentation
-      </a>
-      for more information.
-    </p>`,
-        infoBoxTitle: 'What do variables do?',
+        __html: T('variable.describe'),
+        infoBoxTitle: T('What do variables do?'),
       },
     };
 
     $scope.refreshOptions = [
-      { value: 0, text: 'Never' },
-      { value: 1, text: 'On Dashboard Load' },
-      { value: 2, text: 'On Time Range Change' },
+      { value: 0, text: T('Never') },
+      { value: 1, text: T('On Dashboard Load') },
+      { value: 2, text: T('On Time Range Change') },
     ];
 
     $scope.sortOptions = [
-      { value: 0, text: 'Disabled' },
-      { value: 1, text: 'Alphabetical (asc)' },
-      { value: 2, text: 'Alphabetical (desc)' },
-      { value: 3, text: 'Numerical (asc)' },
-      { value: 4, text: 'Numerical (desc)' },
-      { value: 5, text: 'Alphabetical (case-insensitive, asc)' },
-      { value: 6, text: 'Alphabetical (case-insensitive, desc)' },
+      { value: 0, text: T('Disabled') },
+      { value: 1, text: T('Alphabetical (asc)') },
+      { value: 2, text: T('Alphabetical (desc)') },
+      { value: 3, text: T('Numerical (asc)') },
+      { value: 4, text: T('Numerical (desc)') },
+      { value: 5, text: T('Alphabetical (case-insensitive, asc)') },
+      { value: 6, text: T('Alphabetical (case-insensitive, desc)') },
     ];
 
     $scope.hideOptions = [
       { value: 0, text: '' },
-      { value: 1, text: 'Label' },
-      { value: 2, text: 'Variable' },
+      { value: 1, text: T('Label') },
+      { value: 2, text: T('Variable') },
     ];
 
     $scope.selectors = {

@@ -5,6 +5,7 @@ import { mapStringsToTimeRange } from './mapper';
 import { TimePickerCalendar } from './TimePickerCalendar';
 import Forms from '../../Forms';
 import { isMathString } from '@grafana/data/src/datetime/datemath';
+import { useTranslation } from "react-i18next";
 
 interface Props {
   isFullscreen: boolean;
@@ -22,6 +23,7 @@ interface InputState {
 const errorMessage = 'Please enter a past date or "now"';
 
 export const TimeRangeForm: React.FC<Props> = props => {
+  const { t } = useTranslation();
   const { value, isFullscreen = false, timeZone, roundup } = props;
 
   const [from, setFrom] = useState<InputState>(valueToState(value.raw.from, false, timeZone));
@@ -65,7 +67,7 @@ export const TimeRangeForm: React.FC<Props> = props => {
 
   return (
     <>
-      <Forms.Field label="From" invalid={from.invalid} error={errorMessage}>
+      <Forms.Field label={t("time.From")} invalid={from.invalid} error={errorMessage}>
         <Forms.Input
           onClick={event => event.stopPropagation()}
           onFocus={onFocus}
@@ -74,7 +76,7 @@ export const TimeRangeForm: React.FC<Props> = props => {
           value={from.value}
         />
       </Forms.Field>
-      <Forms.Field label="To" invalid={to.invalid} error={errorMessage}>
+      <Forms.Field label={t("time.To")} invalid={to.invalid} error={errorMessage}>
         <Forms.Input
           onClick={event => event.stopPropagation()}
           onFocus={onFocus}
@@ -83,7 +85,7 @@ export const TimeRangeForm: React.FC<Props> = props => {
           value={to.value}
         />
       </Forms.Field>
-      <Forms.Button onClick={onApply}>Apply time range</Forms.Button>
+  <Forms.Button onClick={onApply}>{t("Apply time range")}</Forms.Button>
 
       <TimePickerCalendar
         isFullscreen={isFullscreen}

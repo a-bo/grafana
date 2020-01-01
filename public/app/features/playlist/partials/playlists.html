@@ -5,13 +5,13 @@
     <div class="page-action-bar">
       <div class="page-action-bar__spacer"></div>
       <a class="btn btn-primary pull-right" href="playlists/create">
-        New playlist
+        {{ctrl.t("New Playlist")}}
       </a>
     </div>
 
     <table class="filter-table filter-table--hover">
       <thead>
-        <th><strong>Name</strong></th>
+        <th><strong>{{ctrl.t("Name")}}</strong></th>
         <th style="width: 100px"></th>
         <th style="width: 78px"></th>
       </thead>
@@ -21,25 +21,25 @@
         </td>
         <td class="dropdown">
           <button class="btn btn-inverse btn-small" data-toggle="dropdown">
-            Start playlist
+            {{ctrl.t("Start playlist")}}
             <i class="fa fa-caret-down"></i>
           </button>
           <ul class="dropdown-menu" role="menu">
             <li>
               <a href="{{playlist.startUrl}}">
-                <i class="fa fa-play"></i> In Normal mode</span>
+                <i class="fa fa-play"></i> {{ctrl.t("In Normal mode")}}</span>
               </a>
               <a href="{{playlist.startUrl}}?kiosk=tv">
-                <i class="fa fa-play"></i> In TV mode</span>
+                <i class="fa fa-play"></i> {{ctrl.t("In TV mode")}}</span>
               </a>
               <a href="{{playlist.startUrl}}?kiosk=tv&autofitpanels">
-                <i class="fa fa-play"></i> In TV mode <span class="muted">(with auto fit panels)</span>
+                <i class="fa fa-play"></i> {{ctrl.t("In TV mode")}} <span class="muted">({{ctrl.t("with auto fit panels")}})</span>
               </a>
               <a href="{{playlist.startUrl}}?kiosk">
-                <i class="fa fa-play"></i> In Kiosk mode</span>
+                <i class="fa fa-play"></i> {{ctrl.t("In Kiosk mode")}}</span>
               </a>
               <a ng-href="{{playlist.startUrl}}?kiosk&autofitpanels">
-                <i class="fa fa-play"></i> In Kiosk mode <span class="muted">(with auto fit panels)</span>
+                <i class="fa fa-play"></i> {{ctrl.t("In Kiosk mode")}} <span class="muted">({{ctrl.t("with auto fit panels")}})</span>
               </a>
             </li>
           </ul>
@@ -57,10 +57,10 @@
       title="'There are no playlists created yet'"
       buttonIcon="'fa fa-plus'"
       buttonLink="'playlists/create'"
-      buttonTitle="'Create Playlist'" 
-      proTip="'You can use playlists to cycle dashboards on TVs without user control'"
+      buttonTitle="ctrl.T('Create Playlist')" 
+      proTip="ctrl.T('playlist.tip')"
       proTipLink="'http://docs.grafana.org/reference/playlist/'" 
-      proTipLinkTitle="'Learn more'"
+      proTipLinkTitle="ctrl.T('Learn more')"
       proTipTarget="'_blank'" />
   </div>
 </div>

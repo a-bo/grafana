@@ -66,7 +66,6 @@ export class ExploreTimeControls extends Component<Props> {
       onZoom: this.onZoom,
       hideText,
     };
-
     return (
       <TimePickerWithHistory
         {...timePickerCommonProps}

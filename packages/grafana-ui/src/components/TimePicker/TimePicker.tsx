@@ -16,6 +16,7 @@ import { withTheme, useTheme } from '../../themes/ThemeContext';
 import { isDateTime, DateTime, rangeUtil, GrafanaTheme, TIME_FORMAT } from '@grafana/data';
 import { TimeRange, TimeOption, TimeZone, dateMath } from '@grafana/data';
 import { Themeable } from '../../types';
+import { Translation } from "react-i18next";
 
 const quickOptions: TimeOption[] = [
   { from: 'now-5m', to: 'now', display: 'Last 5 minutes', section: 3 },
@@ -198,7 +199,11 @@ export class UnthemedTimePicker extends PureComponent<Props, State> {
 
 const ZoomOutTooltip = () => (
   <>
-    Time range zoom out <br /> CTRL+Z
+    <Translation>
+      {
+        (t) => <>{t("Time range zoom out")} <br /> CTRL+Z</>
+      }
+    </Translation>
   </>
 );
 

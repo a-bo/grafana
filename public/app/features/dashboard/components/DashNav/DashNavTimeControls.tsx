@@ -17,6 +17,7 @@ import { TimePickerWithHistory } from 'app/core/components/TimePicker/TimePicker
 
 // Utils & Services
 import { getTimeSrv, TimeSrv } from 'app/features/dashboard/services/TimeSrv';
+import { TFunction } from 'i18next';
 
 const getStyles = stylesFactory((theme: GrafanaTheme) => {
   return {
@@ -31,6 +32,7 @@ const getStyles = stylesFactory((theme: GrafanaTheme) => {
 export interface Props extends Themeable {
   $injector: any;
   dashboard: DashboardModel;
+  t: TFunction;
   updateLocation: typeof updateLocation;
   location: LocationState;
 }
@@ -92,14 +94,13 @@ class UnthemedDashNavTimeControls extends Component<Props> {
   onZoom = () => {
     this.$rootScope.appEvent(CoreEvents.zoomOut, 2);
   };
-
   render() {
     const { dashboard, theme } = this.props;
     const intervals = dashboard.timepicker.refresh_intervals;
     const timePickerValue = this.timeSrv.timeRange();
     const timeZone = dashboard.getTimezone();
     const styles = getStyles(theme);
-
+    const { t } = this.props;
     return (
       <div className={styles.container}>
         <TimePickerWithHistory
@@ -109,13 +110,12 @@ class UnthemedDashNavTimeControls extends Component<Props> {
           onMoveBackward={this.onMoveBack}
           onMoveForward={this.onMoveForward}
           onZoom={this.onZoom}
-        />
-        <RefreshPicker
+        /> <RefreshPicker
           onIntervalChanged={this.onChangeRefreshInterval}
           onRefresh={this.onRefresh}
           value={dashboard.refresh}
           intervals={intervals}
-          tooltip="Refresh dashboard"
+          tooltip={t("Refresh dashboard")}
         />
       </div>
     );

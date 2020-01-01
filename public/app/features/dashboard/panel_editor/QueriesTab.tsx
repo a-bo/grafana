@@ -30,6 +30,7 @@ import { addQuery } from 'app/core/utils/query';
 import { Unsubscribable } from 'rxjs';
 import { isSharedDashboardQuery, DashboardQueryEditor } from 'app/plugins/datasource/dashboard';
 import { expressionDatasource, ExpressionDatasourceID } from 'app/features/expressions/ExpressionDatasource';
+import { Trans } from "react-i18next";
 
 interface Props {
   panel: PanelModel;
@@ -174,13 +175,13 @@ export class QueriesTab extends PureComponent<Props, State> {
         <div className="flex-grow-1" />
         {showAddButton && (
           <button className="btn navbar-button" onClick={this.onAddQueryClick}>
-            Add Query
+            <Trans>Add Query</Trans>
           </button>
         )}
         {isAddingMixed && this.renderMixedPicker()}
         {config.featureToggles.expressions && (
           <button className="btn navbar-button" onClick={this.onAddExpressionClick}>
-            Add Expression
+            <Trans>Add Expression</Trans>
           </button>
         )}
       </>

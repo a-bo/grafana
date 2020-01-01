@@ -20,6 +20,7 @@ import { AppNotificationSeverity, StoreState } from 'app/types';
 import { PanelEditorTabIds, getPanelEditorTab } from '../dashboard/panel_editor/state/reducers';
 import { changePanelEditorTab } from '../dashboard/panel_editor/state/actions';
 import { CoreEvents } from 'app/types';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   angularPanel?: AngularComponent;
@@ -113,12 +114,13 @@ class UnConnectedAlertTab extends PureComponent<Props, State> {
 
   deleteAlert = (): EditorToolbarView => {
     const { panel } = this.props;
+    const { t } = useTranslation();
     return {
       title: 'Delete',
       btnType: 'danger',
       onClick: () => {
         appEvents.emit(CoreEvents.showConfirmModal, {
-          title: 'Delete Alert',
+          title: t('Delete Alert'),
           text: 'Are you sure you want to delete this alert rule?',
           text2: 'You need to save dashboard for the delete to take effect',
           icon: 'fa-trash',

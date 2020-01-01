@@ -9,6 +9,7 @@ import { CustomScrollbar } from '../../CustomScrollbar/CustomScrollbar';
 import { TimeRangeList } from './TimeRangeList';
 import { mapRangeToTimeOption } from './mapper';
 import { getThemeColors } from './colors';
+import { Trans, useTranslation } from "react-i18next";
 
 const getStyles = stylesFactory((theme: GrafanaTheme) => {
   const colors = getThemeColors(theme);
@@ -140,6 +141,7 @@ interface FormProps extends Omit<Props, 'history'> {
 }
 
 export const TimePickerContentWithScreenSize: React.FC<PropsWithScreenSize> = props => {
+  const { t } = useTranslation();
   const theme = useTheme();
   const styles = getStyles(theme);
   const historyOptions = mapToHistoryOptions(props.history, props.timeZone);
@@ -153,7 +155,7 @@ export const TimePickerContentWithScreenSize: React.FC<PropsWithScreenSize> = pr
       <CustomScrollbar className={styles.rightSide}>
         <NarrowScreenForm {...props} visible={!isFullscreen} historyOptions={historyOptions} />
         <TimeRangeList
-          title="Relative time ranges"
+          title={t("Relative time ranges")}
           options={quickOptions}
           onSelect={props.onChange}
           value={props.value}
@@ -161,7 +163,7 @@ export const TimePickerContentWithScreenSize: React.FC<PropsWithScreenSize> = pr
         />
         <div className={styles.spacing} />
         <TimeRangeList
-          title="Other quick ranges"
+          title={t("Other quick ranges")}
           options={otherOptions}
           onSelect={props.onChange}
           value={props.value}
@@ -180,6 +182,7 @@ export const TimePickerContent: React.FC<Props> = props => {
 };
 
 const NarrowScreenForm: React.FC<FormProps> = props => {
+  const { t } = useTranslation();
   if (!props.visible) {
     return null;
   }
@@ -192,7 +195,9 @@ const NarrowScreenForm: React.FC<FormProps> = props => {
   return (
     <>
       <div className={styles.header} onClick={() => setCollapsed(!collapsed)}>
-        <TimePickerTitle>Absolute time range</TimePickerTitle>
+        <TimePickerTitle>
+          {t("Absolute time range")}
+        </TimePickerTitle>
         {collapsed ? <i className="fa fa-caret-up" /> : <i className="fa fa-caret-down" />}
       </div>
       {collapsed && (
@@ -206,7 +211,7 @@ const NarrowScreenForm: React.FC<FormProps> = props => {
             />
           </div>
           <TimeRangeList
-            title="Recently used absolute ranges"
+            title={t("Recently used absolute ranges")}
             options={props.historyOptions || []}
             onSelect={props.onChange}
             value={props.value}
@@ -220,6 +225,7 @@ const NarrowScreenForm: React.FC<FormProps> = props => {
 };
 
 const FullScreenForm: React.FC<FormProps> = props => {
+  const { t } = useTranslation();
   if (!props.visible) {
     return null;
   }
@@ -231,13 +237,13 @@ const FullScreenForm: React.FC<FormProps> = props => {
     <>
       <div className={styles.container}>
         <div className={styles.title}>
-          <TimePickerTitle>Absolute time range</TimePickerTitle>
+          <TimePickerTitle>{t("Absolute time range")}</TimePickerTitle>
         </div>
         <TimeRangeForm value={props.value} timeZone={props.timeZone} onApply={props.onChange} isFullscreen={true} />
       </div>
       <div className={styles.recent}>
         <TimeRangeList
-          title="Recently used absolute ranges"
+          title={t("Recently used absolute ranges")}
           options={props.historyOptions || []}
           onSelect={props.onChange}
           value={props.value}
@@ -250,6 +256,7 @@ const FullScreenForm: React.FC<FormProps> = props => {
 };
 
 const EmptyRecentList = memo(() => {
+  const { t } = useTranslation();
   const theme = useTheme();
   const styles = getEmptyListStyles(theme);
 
@@ -257,15 +264,14 @@ const EmptyRecentList = memo(() => {
     <div className={styles.container}>
       <div>
         <span>
-          It looks like you haven't used this timer picker before. As soon as you enter some time intervals, recently
-          used intervals will appear here.
+          <Trans>time.history.null</Trans>
         </span>
       </div>
       <div>
         <a className={styles.link} href="https://grafana.com/docs/grafana/latest/reference/timerange/" target="_new">
-          Read the documentation
+          {t("Read the documentation")}
         </a>
-        <span> to find out more about how to enter custom time ranges.</span>
+        <span> {t("to find out more about how to enter custom time ranges.")}</span>
       </div>
     </div>
   );

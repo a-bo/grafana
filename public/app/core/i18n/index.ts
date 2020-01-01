@@ -3,35 +3,41 @@ import { initReactI18next } from "react-i18next";
 import config from '../config';
 
 
-async function LoadLanguage() {
+function LoadLanguage(callback: () => void) {
     let name = config.bootData.user.language;
     if (name === "") {
         name = "en_US";
     }
-    config.bootData.ready = false;
     let locale: any;
     switch (name) {
         case "zh_CN":
             require.ensure([], (require: NodeRequire) => {
                 locale = require("./translate/zh_CN.js");
                 initI18n(locale, name);
-                config.bootData.ready = true;
+                callback();
             }, "zh_CN");
             break;
         default:
             require.ensure([], (require: NodeRequire) => {
                 locale = require("./translate/en_US.js");
                 initI18n(locale, name);
-                config.bootData.ready = true;
+                callback();
             }, "en_US");
             break;
     }
-    return await locale;
 }
 
+export const T = (text: string) => {
+    const locale = config.bootData.translate;
+    if (locale.hasOwnProperty(text)) {
+        return Object.getOwnPropertyDescriptor(locale, text).value;
+    }
+    return text;
+};
 
 export const initI18n = (locale: object, name: string) => {
     try {
+        config.bootData.translate = locale;
         const resources: { [index: string]: any } = {};
         resources[name] = {
             translation: locale
@@ -41,7 +47,11 @@ export const initI18n = (locale: object, name: string) => {
             .init({
                 resources,
                 lng: name,
-
+                saveMissing: false,
+                react: {
+                    useSuspense: true,
+                },
+                debug: true,
                 keySeparator: false, // we do not use keys in form messages.welcome
 
                 interpolation: {
@@ -86,6 +96,6 @@ function depthTrans(locale: object, nav: NavTree[]) {
     });
 }
 
-LoadLanguage();
 
-export default { "locale": config.bootData.user.language };
+
+export default LoadLanguage;

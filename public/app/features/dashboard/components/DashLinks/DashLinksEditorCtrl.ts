@@ -3,6 +3,7 @@ import _ from 'lodash';
 import { DashboardModel } from 'app/features/dashboard/state';
 import { GrafanaRootScope } from 'app/routes/GrafanaCtrl';
 import { CoreEvents } from 'app/types';
+import { T } from 'app/core/i18n';
 
 export let iconMap = {
   'external link': 'fa-external-link',
@@ -21,16 +22,13 @@ export class DashLinksEditorCtrl {
   link: any;
 
   emptyListCta = {
-    title: 'There are no dashboard links added yet',
+    title: T('There are no dashboard links added yet'),
     buttonIcon: 'gicon gicon-link',
-    buttonTitle: 'Add Dashboard Link',
+    buttonTitle: T('Add Dashboard Link'),
     infoBox: {
-      __html: `<p>
-      Dashboard Links allow you to place links to other dashboards and web sites directly in below the dashboard
-      header.
-    </p>`,
+      __html: T("dashboard.link.describe"),
     },
-    infoBoxTitle: 'What are Dashboard Links?',
+    infoBoxTitle: T('What are Dashboard Links?'),
   };
 
   /** @ngInject */

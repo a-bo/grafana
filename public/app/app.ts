@@ -13,8 +13,6 @@ import 'react-dom';
 import 'vendor/bootstrap/bootstrap';
 import 'vendor/angular-other/angular-strap';
 
-import i18n from './core/i18n';
-
 import $ from 'jquery';
 import angular from 'angular';
 import config from 'app/core/config';
@@ -58,7 +56,6 @@ export class GrafanaApp {
   preBootModules: any[] | null;
 
   constructor() {
-    console.log("Current: " + i18n.locale);
     addClassIfNoOverlayScrollbar('no-overlay-scrollbar');
     this.preBootModules = [];
     this.registerFunctions = {};

@@ -10,6 +10,7 @@ import { CoreEvents } from 'app/types';
 import { GrafanaRootScope } from 'app/routes/GrafanaCtrl';
 import { AppEvents } from '@grafana/data';
 import { e2e } from '@grafana/e2e';
+import { T } from "app/core/i18n";
 
 export class SettingsCtrl {
   dashboard: DashboardModel;
@@ -23,6 +24,7 @@ export class SettingsCtrl {
   sections: any[];
   hasUnsavedFolderChange: boolean;
   selectors: typeof e2e.pages.Dashboard.Settings.General.selectors;
+  t: (text: string) => string;
 
   /** @ngInject */
   constructor(
@@ -56,6 +58,7 @@ export class SettingsCtrl {
     this.$rootScope.appEvent(CoreEvents.dashScroll, { animate: false, pos: 0 });
     this.$rootScope.onAppEvent(CoreEvents.dashboardSaved, this.onPostSave.bind(this), $scope);
     this.selectors = e2e.pages.Dashboard.Settings.General.selectors;
+    this.t = T;
   }
 
   buildSectionList() {
@@ -63,22 +66,22 @@ export class SettingsCtrl {
 
     if (this.dashboard.meta.canEdit) {
       this.sections.push({
-        title: 'General',
+        title: T('General'),
         id: 'settings',
         icon: 'gicon gicon-preferences',
       });
       this.sections.push({
-        title: 'Annotations',
+        title: T('Annotations'),
         id: 'annotations',
         icon: 'gicon gicon-annotation',
       });
       this.sections.push({
-        title: 'Variables',
+        title: T('Variables'),
         id: 'templating',
         icon: 'gicon gicon-variable',
       });
       this.sections.push({
-        title: 'Links',
+        title: T('Links'),
         id: 'links',
         icon: 'gicon gicon-link',
       });
@@ -86,7 +89,7 @@ export class SettingsCtrl {
 
     if (this.dashboard.id && this.dashboard.meta.canSave) {
       this.sections.push({
-        title: 'Versions',
+        title: T('Versions'),
         id: 'versions',
         icon: 'fa fa-fw fa-history',
       });
@@ -94,7 +97,7 @@ export class SettingsCtrl {
 
     if (this.dashboard.id && this.dashboard.meta.canAdmin) {
       this.sections.push({
-        title: 'Permissions',
+        title: T('Permissions'),
         id: 'permissions',
         icon: 'fa fa-fw fa-lock',
       });
@@ -102,14 +105,14 @@ export class SettingsCtrl {
 
     if (this.dashboard.meta.canMakeEditable) {
       this.sections.push({
-        title: 'General',
+        title: T('General'),
         icon: 'gicon gicon-preferences',
         id: 'make_editable',
       });
     }
 
     this.sections.push({
-      title: 'JSON Model',
+      title: T('JSON Model'),
       id: 'dashboard_json',
       icon: 'gicon gicon-json',
     });

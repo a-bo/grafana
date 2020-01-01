@@ -4,21 +4,25 @@ import { BackendSrv } from '@grafana/runtime';
 import { NavModelSrv } from 'app/core/nav_model_srv';
 import { CoreEvents } from 'app/types';
 import { AppEvents } from '@grafana/data';
+import { T } from "../../core/i18n";
 
 export class PlaylistsCtrl {
   playlists: any;
   navModel: any;
+  t: (text: string) => string;
 
   /** @ngInject */
   constructor(private $scope: any, private backendSrv: BackendSrv, navModelSrv: NavModelSrv) {
-    this.navModel = navModelSrv.getNav('dashboards', 'playlists', 0);
 
+    this.navModel = navModelSrv.getNav('dashboards', 'playlists', 0);
     backendSrv.get('/api/playlists').then((result: any) => {
       this.playlists = result.map((item: any) => {
         item.startUrl = `playlists/play/${item.id}`;
         return item;
       });
     });
+
+    this.t = T;
   }
 
   removePlaylistConfirmed(playlist: any) {

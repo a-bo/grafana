@@ -14,6 +14,7 @@ import { updateLocation } from 'app/core/actions';
 // Types
 import { DashboardModel } from '../../state';
 import { CoreEvents, StoreState } from 'app/types';
+import { Translation } from "react-i18next";
 
 export interface OwnProps {
   dashboard: DashboardModel;
@@ -175,104 +176,109 @@ export class DashNav extends PureComponent<Props> {
     const { snapshot } = dashboard;
     const snapshotUrl = snapshot && snapshot.originalUrl;
     return (
-      <div className="navbar">
-        {this.isInFullscreenOrSettings && this.renderBackButton()}
-        {this.renderDashboardTitleSearchButton()}
+      <Translation>
+        {
+          t =>
+            <div className="navbar">
+              {this.isInFullscreenOrSettings && this.renderBackButton()}
+              {this.renderDashboardTitleSearchButton()}
 
-        {this.playlistSrv.isPlaying && (
-          <div className="navbar-buttons navbar-buttons--playlist">
-            <DashNavButton
-              tooltip="Go to previous dashboard"
-              classSuffix="tight"
-              icon="fa fa-step-backward"
-              onClick={this.onPlaylistPrev}
-            />
-            <DashNavButton
-              tooltip="Stop playlist"
-              classSuffix="tight"
-              icon="fa fa-stop"
-              onClick={this.onPlaylistStop}
-            />
-            <DashNavButton
-              tooltip="Go to next dashboard"
-              classSuffix="tight"
-              icon="fa fa-forward"
-              onClick={this.onPlaylistNext}
-            />
-          </div>
-        )}
+              {this.playlistSrv.isPlaying && (
+                <div className="navbar-buttons navbar-buttons--playlist">
+                  <DashNavButton
+                    tooltip={t("Go to previous dashboard")}
+                    classSuffix="tight"
+                    icon="fa fa-step-backward"
+                    onClick={this.onPlaylistPrev}
+                  />
+                  <DashNavButton
+                    tooltip={t("Stop playlist")}
+                    classSuffix="tight"
+                    icon="fa fa-stop"
+                    onClick={this.onPlaylistStop}
+                  />
+                  <DashNavButton
+                    tooltip={t("Go to next dashboard")}
+                    classSuffix="tight"
+                    icon="fa fa-forward"
+                    onClick={this.onPlaylistNext}
+                  />
+                </div>
+              )}
 
-        <div className="navbar-buttons navbar-buttons--actions">
-          {canSave && (
-            <DashNavButton
-              tooltip="Add panel"
-              classSuffix="add-panel"
-              icon="gicon gicon-add-panel"
-              onClick={onAddPanel}
-            />
-          )}
+              <div className="navbar-buttons navbar-buttons--actions">
+                {canSave && (
+                  <DashNavButton
+                    tooltip={t("Add panel")}
+                    classSuffix="add-panel"
+                    icon="gicon gicon-add-panel"
+                    onClick={onAddPanel}
+                  />
+                )}
 
-          {canStar && (
-            <DashNavButton
-              tooltip="Mark as favorite"
-              classSuffix="star"
-              icon={`${isStarred ? 'fa fa-star' : 'fa fa-star-o'}`}
-              onClick={this.onStarDashboard}
-            />
-          )}
+                {canStar && (
+                  <DashNavButton
+                    tooltip={t("Mark as favorite")}
+                    classSuffix="star"
+                    icon={`${isStarred ? 'fa fa-star' : 'fa fa-star-o'}`}
+                    onClick={this.onStarDashboard}
+                  />
+                )}
 
-          {canShare && (
-            <DashNavButton
-              tooltip="Share dashboard"
-              classSuffix="share"
-              icon="fa fa-share-square-o"
-              onClick={this.onOpenShare}
-            />
-          )}
+                {canShare && (
 
-          {canSave && (
-            <DashNavButton tooltip="Save dashboard" classSuffix="save" icon="fa fa-save" onClick={this.onSave} />
-          )}
+                  <DashNavButton
+                    tooltip={t("Share dashboard")}
+                    classSuffix="share"
+                    icon="fa fa-share-square-o"
+                    onClick={this.onOpenShare}
+                  />
+                )}
 
-          {snapshotUrl && (
-            <DashNavButton
-              tooltip="Open original dashboard"
-              classSuffix="snapshot-origin"
-              icon="gicon gicon-link"
-              href={snapshotUrl}
-            />
-          )}
+                {canSave && (
+                  <DashNavButton tooltip={t("Save dashboard")} classSuffix="save" icon="fa fa-save" onClick={this.onSave} />
+                )}
 
-          {showSettings && (
-            <DashNavButton
-              tooltip="Dashboard settings"
-              classSuffix="settings"
-              icon="gicon gicon-cog"
-              onClick={this.onOpenSettings}
-            />
-          )}
-        </div>
+                {snapshotUrl && (<DashNavButton
+                  tooltip={t("Open original dashboard")}
+                  classSuffix="snapshot-origin"
+                  icon="gicon gicon-link"
+                  href={snapshotUrl}
+                />
+                )}
 
-        <div className="navbar-buttons navbar-buttons--tv">
-          <DashNavButton
-            tooltip="Cycle view mode"
-            classSuffix="tv"
-            icon="fa fa-desktop"
-            onClick={this.onToggleTVMode}
-          />
-        </div>
+                {showSettings && (<DashNavButton
+                  tooltip={t("Dashboard settings")}
+                  classSuffix="settings"
+                  icon="gicon gicon-cog"
+                  onClick={this.onOpenSettings}
+                />
+                )}
+              </div>
 
-        {!dashboard.timepicker.hidden && (
-          <div className="navbar-buttons">
-            <DashNavTimeControls
-              $injector={$injector}
-              dashboard={dashboard}
-              location={location}
-              updateLocation={updateLocation}
-            />
-          </div>
-        )}
-      </div>
+              <div className="navbar-buttons navbar-buttons--tv">
+                <DashNavButton
+                  tooltip={t("Cycle view mode")}
+                  classSuffix="tv"
+                  icon="fa fa-desktop"
+                  onClick={this.onToggleTVMode}
+                />
+              </div>
+
+              {!dashboard.timepicker.hidden && (
+                <div className="navbar-buttons">
+                  <DashNavTimeControls
+                    $injector={$injector}
+                    t={t}
+                    dashboard={dashboard}
+                    location={location}
+                    updateLocation={updateLocation}
+                  />
+                </div>
+              )}
+            </div>
+        }
+      </Translation>
     );
   }
 }

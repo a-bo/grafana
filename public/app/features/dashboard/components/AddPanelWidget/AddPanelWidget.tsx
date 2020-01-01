@@ -12,6 +12,7 @@ import { updateLocation } from 'app/core/actions';
 // Types
 import { DashboardModel, PanelModel } from '../../state';
 import { LS_PANEL_COPY_KEY } from 'app/core/constants';
+import { Translation } from "react-i18next";
 
 export type PanelPluginInfo = { id: any; defaults: { gridPos: { w: any; h: any }; title: any } };
 
@@ -151,40 +152,43 @@ export class AddPanelWidget extends React.Component<Props, State> {
 
   render() {
     const { copiedPanelPlugins } = this.state;
-
     return (
-      <div className="panel-container add-panel-widget-container">
-        <div className="add-panel-widget">
-          <div className="add-panel-widget__header grid-drag-handle">
-            <i className="gicon gicon-add-panel" />
-            <span className="add-panel-widget__title">New Panel</span>
-            <button className="add-panel-widget__close" onClick={this.handleCloseAddPanel}>
-              <i className="fa fa-close" />
-            </button>
-          </div>
-          <div className="add-panel-widget__btn-container">
-            <div className="add-panel-widget__create">
-              {this.renderOptionLink('queries', 'Add Query', this.onCreateNewPanel)}
-              {this.renderOptionLink('visualization', 'Choose Visualization', () =>
-                this.onCreateNewPanel('visualization')
-              )}
-            </div>
-            <div className="add-panel-widget__actions">
-              <button className="btn btn-inverse add-panel-widget__action" onClick={this.onCreateNewRow}>
-                Convert to row
-              </button>
-              {copiedPanelPlugins.length === 1 && (
-                <button
-                  className="btn btn-inverse add-panel-widget__action"
-                  onClick={() => this.onPasteCopiedPanel(copiedPanelPlugins[0])}
-                >
-                  Paste copied panel
+      <Translation>
+        {
+          t => <div className="panel-container add-panel-widget-container">
+            <div className="add-panel-widget">
+              <div className="add-panel-widget__header grid-drag-handle">
+                <i className="gicon gicon-add-panel" />
+                <span className="add-panel-widget__title">New Panel</span>
+                <button className="add-panel-widget__close" onClick={this.handleCloseAddPanel}>
+                  <i className="fa fa-close" />
                 </button>
-              )}
+              </div>
+              <div className="add-panel-widget__btn-container">
+                <div className="add-panel-widget__create">
+                  {this.renderOptionLink('queries', t('Add Query'), this.onCreateNewPanel)}
+                  {this.renderOptionLink('visualization', t('Choose Visualization'), () =>
+                    this.onCreateNewPanel('visualization')
+                  )}
+                </div>
+                <div className="add-panel-widget__actions">
+                  <button className="btn btn-inverse add-panel-widget__action" onClick={this.onCreateNewRow}>
+                    {t("Convert to row")}
+                  </button>
+                  {copiedPanelPlugins.length === 1 && (
+                    <button
+                      className="btn btn-inverse add-panel-widget__action"
+                      onClick={() => this.onPasteCopiedPanel(copiedPanelPlugins[0])}
+                    >
+                      {t("Paste copied panel")}
+                    </button>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        }
+      </Translation>
     );
   }
 }

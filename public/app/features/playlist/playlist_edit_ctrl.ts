@@ -5,6 +5,7 @@ import { BackendSrv } from 'app/core/services/backend_srv';
 import { NavModelSrv } from 'app/core/nav_model_srv';
 import { AppEventEmitter } from 'app/types';
 import { AppEvents } from '@grafana/data';
+import { T } from "../../core/i18n";
 
 export interface PlaylistItem {
   value: any;
@@ -12,6 +13,8 @@ export interface PlaylistItem {
   type: string;
   order: any;
 }
+
+
 export class PlaylistEditCtrl {
   filteredDashboards: any = [];
   filteredTags: any = [];
@@ -20,13 +23,12 @@ export class PlaylistEditCtrl {
   playlist: any = {
     interval: '5m',
   };
-
   playlistItems: any = [];
   dashboardresult: any = [];
   tagresult: any = [];
   navModel: any;
   isNew: boolean;
-
+  t: (text: string) => string;
   /** @ngInject */
   constructor(
     private $scope: AppEventEmitter,
@@ -49,6 +51,7 @@ export class PlaylistEditCtrl {
         this.playlistItems = result;
       });
     }
+    this.t = T;
   }
 
   filterFoundPlaylistItems() {

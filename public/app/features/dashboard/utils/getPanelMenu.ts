@@ -11,8 +11,10 @@ import { contextSrv } from '../../../core/services/context_srv';
 import { navigateToExplore } from '../../explore/state/actions';
 import { getExploreUrl } from '../../../core/utils/explore';
 import { getTimeSrv } from '../services/TimeSrv';
+import { useTranslation } from "react-i18next";
 
 export const getPanelMenu = (dashboard: DashboardModel, panel: PanelModel) => {
+  const { t } = useTranslation();
   const onViewPanel = (event: React.MouseEvent<any>) => {
     event.preventDefault();
     store.dispatch(
@@ -125,7 +127,7 @@ export const getPanelMenu = (dashboard: DashboardModel, panel: PanelModel) => {
 
   if (contextSrv.hasAccessToExplore() && panel.datasource) {
     menu.push({
-      text: 'Explore',
+      text: t('Explore'),
       iconClassName: 'gicon gicon-explore',
       shortcut: 'x',
       onClick: onNavigateToExplore,

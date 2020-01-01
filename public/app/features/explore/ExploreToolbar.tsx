@@ -32,6 +32,7 @@ import { ResponsiveButton } from './ResponsiveButton';
 import { RunButton } from './RunButton';
 import { LiveTailControls } from './useLiveTailControls';
 import { getExploreDatasources } from './state/selectors';
+import { Trans,Translation } from "react-i18next";
 
 const getStyles = memoizeOne(() => {
   return {
@@ -184,7 +185,7 @@ export class UnConnectedExploreToolbar extends PureComponent<Props> {
               {exploreId === 'left' && (
                 <span className="navbar-page-btn">
                   <i className="gicon gicon-explore" />
-                  Explore
+                  <Trans>Explore</Trans>
                 </span>
               )}
             </div>
@@ -255,16 +256,20 @@ export class UnConnectedExploreToolbar extends PureComponent<Props> {
                 )}
               </div>
             )}
-
             {exploreId === 'left' && !splitted ? (
               <div className="explore-toolbar-content-item explore-icon-align">
-                <ResponsiveButton
-                  splitted={splitted}
-                  title="Split"
-                  onClick={split}
-                  iconClassName="fa fa-fw fa-columns icon-margin-right"
-                  disabled={isLive}
-                />
+              <Translation>
+                {
+                  (t)=>
+                  <ResponsiveButton
+                    splitted={splitted}
+                    title={t("Split")}
+                    onClick={split}
+                    iconClassName="fa fa-fw fa-columns icon-margin-right"
+                    disabled={isLive}
+                  />
+                }
+              </Translation>
               </div>
             ) : null}
             {!isLive && (

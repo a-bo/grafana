@@ -5,6 +5,8 @@ import { BackendSrv } from 'app/core/services/backend_srv';
 import { ValidationSrv } from 'app/features/manage-dashboards';
 import { ContextSrv } from 'app/core/services/context_srv';
 import { AppEvents } from '@grafana/data';
+import { T } from 'app/core/i18n';
+
 
 export class FolderPickerCtrl {
   initialTitle: string;
@@ -61,7 +63,7 @@ export class FolderPickerCtrl {
       }
 
       if (this.isEditor && this.enableCreateNew && query === '') {
-        result.unshift({ title: '-- New Folder --', id: -1 });
+        result.unshift({ title: T('-- New Folder --'), id: -1 });
       }
 
       if (this.enableReset && query === '' && this.initialTitle !== '') {

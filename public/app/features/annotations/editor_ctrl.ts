@@ -6,6 +6,7 @@ import { DashboardModel } from 'app/features/dashboard/state';
 import DatasourceSrv from '../plugins/datasource_srv';
 import appEvents from 'app/core/app_events';
 import { AppEvents } from '@grafana/data';
+import { T } from 'app/core/i18n';
 
 export class AnnotationsEditorCtrl {
   mode: any;
@@ -26,29 +27,20 @@ export class AnnotationsEditorCtrl {
   };
 
   emptyListCta = {
-    title: 'There are no custom annotation queries added yet',
+    title: T('There are no custom annotation queries added yet'),
     buttonIcon: 'gicon gicon-annotation',
-    buttonTitle: 'Add Annotation Query',
+    buttonTitle: T('Add Annotation Query'),
     infoBox: {
-      __html: `<p>Annotations provide a way to integrate event data into your graphs. They are visualized as vertical lines
-    and icons on all graph panels. When you hover over an annotation icon you can get event text &amp; tags for
-    the event. You can add annotation events directly from grafana by holding CTRL or CMD + click on graph (or
-    drag region). These will be stored in Grafana's annotation database.
-  </p>
-  Checkout the
-  <a class='external-link' target='_blank' href='http://docs.grafana.org/reference/annotations/'
-    >Annotations documentation</a
-  >
-  for more information.`,
+      __html: T("dashboard.annotation.describe"),
     },
-    infoBoxTitle: 'What are annotations?',
+    infoBoxTitle: T('What are annotations?'),
   };
 
   showOptions: any = [
-    { text: 'All Panels', value: 0 },
-    { text: 'Specific Panels', value: 1 },
+    { text: T('All Panels'), value: 0 },
+    { text: T('Specific Panels'), value: 1 },
   ];
-
+  t: (text: string) => string = T;
   /** @ngInject */
   constructor(private $scope: any, private datasourceSrv: DatasourceSrv) {
     $scope.ctrl = this;
